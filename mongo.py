@@ -1,4 +1,4 @@
-import pymongo
+mport pymongo
  
 from pymongo import MongoClient
  
@@ -20,13 +20,13 @@ class users:
         self.telefono = telefono
 
     def insertar(users):
-    base_de_datos = obtener_bd()
-    productos = base_de_datos.users
-    return users.insert_one({
-        "name": users.name,
-        "edad": users.edad,
-        "telefono": users.telefono,
-        }).inserted_id
+        base_de_datos = obtener_bd()
+        productos = base_de_datos.users
+        return users.insert_one({
+            "name": users.name,
+            "edad": users.edad,
+            "telefono": users.telefono,
+            }).inserted_id
 
     def actualizar(id, users):
         base_de_datos = obtener_bd()
@@ -41,12 +41,12 @@ class users:
                 "telefono": users.telefono,
             }
         })
-    return resultado.modified_count
+        return resultado.modified_count
 
     def eliminar(id):
-    base_de_datos = obtener_bd()
-    resultado = base_de_datos.users.delete_one(
-        {
-        '_id': ObjectId(id)
-        })
-    return resultado.deleted_count
+        base_de_datos = obtener_bd()
+        resultado = base_de_datos.users.delete_one(
+            {
+            '_id': ObjectId(id)
+            })
+        return resultado.deleted_count
