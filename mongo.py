@@ -1,10 +1,17 @@
-mport pymongo
+import pymongo
  
 from pymongo import MongoClient
  
 # conexión
-con = MongoClient('localhost',27017)
-db = con.users
+
+def obtener_bd():
+    host = "localhost"
+    puerto = "27017"
+    
+    base_de_datos= "users"
+  
+   ''' cliente = MongoClient("mongodb://{}:{}@{}:{}".format(host, puerto))
+    return cliente[db] '''
  
 # colección
 users = db.users
@@ -13,13 +20,13 @@ resultado = users.find_one()
  
 print (resultado)
 
-class users:
+class Users:
     def __init__(self, name, edad, telefono):
         self.name = name
         self.edad = edad
         self.telefono = telefono
 
-    def insertar(users):
+    def Insertar(users):
         base_de_datos = obtener_bd()
         productos = base_de_datos.users
         return users.insert_one({
@@ -28,7 +35,7 @@ class users:
             "telefono": users.telefono,
             }).inserted_id
 
-    def actualizar(id, users):
+    def Actualizar(id, users):
         base_de_datos = obtener_bd()
         resultado = base_de_datos.users.update_one(
         {
@@ -43,7 +50,7 @@ class users:
         })
         return resultado.modified_count
 
-    def eliminar(id):
+    def Eliminar(id):
         base_de_datos = obtener_bd()
         resultado = base_de_datos.users.delete_one(
             {
