@@ -1,4 +1,6 @@
 from telegram.ext import Updater, CommandHandler
+from mongo import Users
+
 
 #Funcion de saludo 
 def hello(update, context):
@@ -22,10 +24,11 @@ updater.dispatcher.add_handler(CommandHandler('hello', hello))
 
 updater.dispatcher.add_handler(CommandHandler('chau', adios))
 
-updater.dispatcher.add_handler(CommandHandler('signup', signup))
+updater.dispatcher.add_handler(CommandHandler('signup', Users.Actualizar))
 
 
 
 
 updater.start_polling()
 updater.idle()
+
