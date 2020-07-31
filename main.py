@@ -3,6 +3,13 @@ import os
 import pymongo
 from pymongo import MongoClient
  
+
+def obtener_bd():
+   host = "localhost"
+   puerto = "27017"
+    
+   base_de_datos= "users"
+
 def obtener():
     base_de_datos = obtener_bd()
     return base_de_datos.users.find()
@@ -25,7 +32,7 @@ def insertar(users):
 
 def actualizar(id, users):
     base_de_datos = obtener_bd()
-    resultado = base_de_datos.update_one(
+    resultado = base_de_datos.update(
     {
     '_id': ObjectId(id)
     }, 
@@ -40,8 +47,7 @@ def actualizar(id, users):
 
 def eliminar(id):
     base_de_datos = obtener_bd()
-    resultado = base_de_datos.delete_one(
-        {
+    resultado = base_de_datos.delete_one({
          '_id': ObjectId(id)
            })
     return resultado.deleted_count
@@ -67,28 +73,27 @@ updater = Updater('1061491150:AAHd2hlo9dPkxLajLWpsBzhCNc6XD_jg79w', use_context=
 updater.dispatcher.add_handler(CommandHandler('hello', hello))
 
 updater.dispatcher.add_handler(CommandHandler('chau', adios))
-inst= users({},{},{})
+#inst= users({},{},{})
 
 
-updater.dispatcher.add_handler(CommandHandler('signup',signup)
+updater.dispatcher.add_handler(CommandHandler('signup',actualizar))
 
 
 
-#updater.start_polling()
-#updater.idle()
+updater.start_polling()
+updater.idle()
 
 
 
 # conexión
-con = MongoClient('localhost',27017)
-db = con.users
+#con= MongoClient('localhost',27017)
+#db = con.users
  
 # colección
-users = db.users
+#users = db.users
  
-resultado = users.find_one()
+#resultado = users.find_one()
  
-print (resultado)
-
+#print (resultado)
 
         
