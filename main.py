@@ -1,44 +1,50 @@
 from telegram.ext  import Updater, CommandHandler
 import os
 import pymongo
+from pymongo import MongoClient
  
-class users:
-    def __init__(self, name, edad, telefono):
-        self.name = name
-        self.edad = edad
-        self.telefono = telefono
+def obtener():
+    base_de_datos = obtener_bd()
+    return base_de_datos.users.find()
+    
 
-    def insertar(users):
-        base_de_datos = obtener_bd()
-        users = base_de_datos.users
-        return users.insert_one({
+
+def __init__(self, name, edad, telefono):
+    self.name = name
+    self.edad = edad
+    self.telefono = telefono
+
+def insertar(users):
+    base_de_datos = obtener_bd()
+    users = base_de_datos.users
+    return insert_one({
+        "name": users.name,
+        "edad": users.edad,
+        "telefono": users.telefono,
+        }).inserted_id
+
+def actualizar(id, users):
+    base_de_datos = obtener_bd()
+    resultado = base_de_datos.update_one(
+    {
+    '_id': ObjectId(id)
+    }, 
+    {
+        '$set': {
             "name": users.name,
             "edad": users.edad,
             "telefono": users.telefono,
-            }).inserted_id
+        }
+    })
+    return resultado.modified_count
 
-    def actualizar(id, users):
-        base_de_datos = obtener_bd()
-        resultado = base_de_datos.users.update_one(
+def eliminar(id):
+    base_de_datos = obtener_bd()
+    resultado = base_de_datos.delete_one(
         {
-        '_id': ObjectId(id)
-        }, 
-        {
-            '$set': {
-                "name": users.name,
-                "edad": users.edad,
-                "telefono": users.telefono,
-            }
-        })
-        return resultado.modified_count
-
-    def eliminar(id):
-        base_de_datos = obtener_bd()
-        resultado = base_de_datos.users.delete_one(
-            {
-            '_id': ObjectId(id)
-            })
-        return resultado.deleted_count
+         '_id': ObjectId(id)
+           })
+    return resultado.deleted_count
 
 #Funcion de saludo 
 def hello(update, context):
@@ -64,12 +70,12 @@ updater.dispatcher.add_handler(CommandHandler('chau', adios))
 inst= users({},{},{})
 
 
-updater.dispatcher.add_handler(CommandHandler('signup', users.actualizar()))
+updater.dispatcher.add_handler(CommandHandler('signup',signup)
 
 
 
-updater.start_polling()
-updater.idle()
+#updater.start_polling()
+#updater.idle()
 
 
 
